@@ -1,4 +1,6 @@
-require 'spec_helper'
+$:.unshift File.join(File.dirname(__FILE__), '../lib')
+require 'hector/blolol_identity_adapter'
+require 'webmock/rspec'
 
 describe Hector::BlololIdentityAdapter do
   around :each do |example|
