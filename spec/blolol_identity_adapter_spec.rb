@@ -11,16 +11,19 @@ describe Hector::BlololIdentityAdapter do
   end
 
   before do
-    @adapter = Hector::BlololIdentityAdapter.new
+    authentication_token = 'valid'
+    @adapter = Hector::BlololIdentityAdapter.new(authentication_token)
   end
 
   context '#authenticate' do
     context 'when the auth token is invalid' do
       before do
+        @adapter.authentication_token = 'invalid'
+
         stub_request(:post, 'https://blolol.com/chat/sessions').
           with(headers: { 'Accept' => 'application/json' },
             query: { 'auth_token' => 'invalid', 'user' => {
-            'username' => 'foo', 'password' => 's3cr3t' } }).
+            'username' => 'foo', 'password' => 'valid' } }).
           to_return(status: :unauthorized, body: '{"error":"Invalid authentication token."')
       end
 
@@ -29,11 +32,11 @@ describe Hector::BlololIdentityAdapter do
         logger.should_receive(:error).with('BlololIdentityAdapter: Invalid authentication token')
         Hector.stub logger: logger
 
-        @adapter.authenticate 'foo', 'correct'
+        @adapter.authenticate 'foo', 'valid'
       end
 
       it 'yields false' do
-        expect { |block| @adapter.authenticate('foo', 'correct', &block) }.to yield_with_args(false)
+        expect { |block| @adapter.authenticate('foo', 'valid', &block) }.to yield_with_args(false)
       end
     end
 
@@ -47,7 +50,7 @@ describe Hector::BlololIdentityAdapter do
       end
 
       it 'yields false' do
-        expect { |block| @adapter.authenticate('foo', 'wrong', &block) }.to yield_with_args(false)
+        expect { |block| @adapter.authenticate('foo', 'invalid', &block) }.to yield_with_args(false)
       end
     end
 
@@ -56,12 +59,12 @@ describe Hector::BlololIdentityAdapter do
         stub_request(:post, 'https://blolol.com/chat/sessions').
           with(headers: { 'Accept' => 'application/json' },
             query: { 'auth_token' => 'valid', 'user' => {
-            'username' => 'foo', 'password' => 's3cr3t' } }).
+            'username' => 'foo', 'password' => 'valid' } }).
           to_return(status: :ok)
       end
 
       it 'yields true' do
-        expect { |block| @adapter.authenticate('foo', 'correct', &block) }.to yield_with_args(true)
+        expect { |block| @adapter.authenticate('foo', 'valid', &block) }.to yield_with_args(true)
       end
     end
   end
