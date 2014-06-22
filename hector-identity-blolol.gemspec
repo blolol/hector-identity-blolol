@@ -10,7 +10,8 @@ spec = Gem::Specification.new do |s|
   s.files = Dir['lib/hector/*.rb']
   s.require_path = 'lib'
 
-  s.add_dependency 'em-http-request', '>= 1.1.2'
+  s.add_dependency 'excon', '~> 0.37.0'
+  s.add_dependency 'hector', '~> 1.0.9'
   s.add_development_dependency 'rspec', '~> 2.14.1'
   s.add_development_dependency 'webmock', '~> 1.18.0'
 end
