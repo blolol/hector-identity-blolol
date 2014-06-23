@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Hector::BlololAuthenticationRequest do
+describe Blolol::Hector::ChatSession do
   context '#success?' do
     before do
-      @request = Hector::BlololAuthenticationRequest.new('auth_token', 'foo', 's3cr3t',
+      @session = Blolol::Hector::ChatSession.new('auth_token', 'foo', 's3cr3t',
         base_url: 'http://example.com')
     end
 
@@ -13,7 +13,7 @@ describe Hector::BlololAuthenticationRequest do
       end
 
       it 'returns false' do
-        expect(@request).to_not be_success
+        expect(@session).to_not be_success
       end
     end
 
@@ -23,7 +23,7 @@ describe Hector::BlololAuthenticationRequest do
       end
 
       it 'returns true' do
-        expect(@request).to be_success
+        expect(@session).to be_success
       end
     end
   end

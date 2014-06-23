@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe Hector::BlololIdentityAdapter do
+describe Blolol::Hector::IdentityAdapter do
   before do
-    @adapter = Hector::BlololIdentityAdapter.new(auth_token: 'valid',
+    @adapter = Blolol::Hector::IdentityAdapter.new(auth_token: 'valid',
       base_url: 'http://example.com')
   end
 
   context '#authenticate' do
     context 'when the authentication request fails' do
       before do
-        request = double('BlololAuthenticationRequest', success?: false)
-        allow(@adapter).to receive(:authentication_request).and_return(request)
+        request = double('ChatSession', success?: false)
+        allow(@adapter).to receive(:chat_session).and_return(request)
       end
 
       it 'yields false' do
@@ -20,8 +20,8 @@ describe Hector::BlololIdentityAdapter do
 
     context 'when the authentication request succeeds' do
       before do
-        request = double('BlololAuthenticationRequest', success?: true)
-        allow(@adapter).to receive(:authentication_request).and_return(request)
+        request = double('ChatSession', success?: true)
+        allow(@adapter).to receive(:chat_session).and_return(request)
       end
 
       it 'yields true' do
