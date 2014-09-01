@@ -3,10 +3,11 @@ require 'blolol/hector/chat_session'
 module Blolol
   module Hector
     class IdentityAdapter
-      attr_accessor :auth_token, :base_url
+      attr_accessor :api_key, :api_secret, :base_url
 
-      def initialize(auth_token:, base_url: nil)
-        @auth_token = auth_token
+      def initialize(api_key:, api_secret:, base_url: nil)
+        @api_key = api_key
+        @api_secret = api_secret
         @base_url = base_url
       end
 
@@ -29,7 +30,7 @@ module Blolol
       private
 
       def chat_session(username, password)
-        ChatSession.new auth_token, username, password, base_url: base_url
+        ChatSession.new api_key, api_secret, username, password, base_url: base_url
       end
     end
   end

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Blolol::Hector::IdentityAdapter do
   before do
-    @adapter = Blolol::Hector::IdentityAdapter.new(auth_token: 'valid',
-      base_url: 'http://example.com')
+    @adapter = Blolol::Hector::IdentityAdapter.new(api_key: 'api_key', api_secret: 'api_secret',
+      base_url: 'http://api.example.com')
   end
 
   context '#authenticate' do

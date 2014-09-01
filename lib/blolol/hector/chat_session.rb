@@ -4,10 +4,10 @@ require 'json'
 module Blolol
   module Hector
     class ChatSession
-      DEFAULT_BASE_URL = 'https://blolol.com'
+      DEFAULT_BASE_URL = 'https://api.blolol.com'
 
-      def initialize(auth_token, username, password, base_url: nil)
-        @auth_token = auth_token
+      def initialize(api_key, api_secret, username, password, base_url: nil)
+        @authorization_header = "key=#{api_key} secret=#{api_secret}"
         @username = username
         @password = password
         @base_url = base_url || DEFAULT_BASE_URL
@@ -30,14 +30,14 @@ module Blolol
       def request_headers
         {
           'Accept' => 'application/json',
+          'Authorization' => @authorization_header,
           'Content-Type' => 'application/json'
         }
       end
 
       def request_body
         {
-          auth_token: @auth_token,
-          user: {
+          session: {
             username: @username,
             password: @password
           }
@@ -45,7 +45,7 @@ module Blolol
       end
 
       def request_url
-        "#{base_url}/chat/sessions"
+        "#{base_url}/v1/chat/sessions"
       end
     end
   end

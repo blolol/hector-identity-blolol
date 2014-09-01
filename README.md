@@ -11,14 +11,15 @@ In your Hector configuration, load hector-identity-blolol and use it as Hector's
 ```ruby
 require 'blolol/hector/identity_adapter'
 
-Hector::Identity.adapter = Blolol::Hector::IdentityAdapter.new(auth_token: '...')
+Hector::Identity.adapter = Blolol::Hector::IdentityAdapter.new(api_key: '...', api_secret: '...')
 ```
 
 By default, hector-identity-blolol makes requests to
-`https://blolol.com`, but you can also specify a different base URL.
+`https://api.blolol.com`, but you can also specify a different base URL.
 
 ```ruby
-Blolol::Hector::IdentityAdapter.new(auth_token: '...', base_url: 'https://staging.example.com')
+Blolol::Hector::IdentityAdapter.new(api_key: '...', api_secret: '...',
+  base_url: 'http://api.staging.blolol.com')
 ```
 
 ### License
