@@ -7,7 +7,7 @@ spec = Gem::Specification.new do |s|
   s.homepage = 'https://github.com/blolol/hector-identity-blolol'
   s.summary = 'Blolol identity adapter for Hector'
   s.description = 'An identity adapter that talks to the Blolol authentication API.'
-  s.files = Dir['lib/hector/*.rb']
+  s.files = Dir['lib/**/*.rb']
   s.require_path = 'lib'
 
   s.add_dependency 'excon', '~> 0.37.0'
